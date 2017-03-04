@@ -29,19 +29,21 @@ shinyUI(
           # Вкладка выбора пациента
           tabPanel(
             title = "База данных",
-            
+
             # Список пациентов
             uiOutput("patients_list"),
-            
+
             # Кнопки связи с пациентом
             actionButton(
-              inputId = "sendQuestionary",
-              label = "Отправить анкету"
+              inputId = "send_questionary",
+              label = "Отправить анкету",
+              width = '100%'
             ),
             
             actionButton(
-              inputId = "sendMessage",
-              label = "Написать сообщение"
+              inputId = "send_message",
+              label = "Написать сообщение",
+              width = '100%'
             )
           ),
           
@@ -90,8 +92,9 @@ shinyUI(
               inputId = "patient_comments",
               label = "Комментарии"
             ),
-            submitButton(
-              text = "Добавить в базу"
+            actionButton(
+              inputId = "add_to_db",
+              label = "Добавить в базу"
             )
           )
         )
@@ -101,8 +104,8 @@ shinyUI(
       # Show a plot of the generated distribution
       mainPanel(
         fluidPage(
-          h2(textOutput("patient_name"))
-          # dataTableOutput("patient_data")
+          h2(textOutput("patient_name")),
+          dataTableOutput("patient_data")
         )
       )
     )
