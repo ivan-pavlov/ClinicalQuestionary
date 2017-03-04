@@ -22,27 +22,78 @@ shinyUI(
     title = "Пациенты",
     
     sidebarLayout(
+      # Боковая панель
       sidebarPanel(
-        # Выбор пациента
-        selectInput(
-          inputId = "patient",
-          label = "Выберите пациента",
-          # Сюда будут передаваться данные из БД
-          choices = c("1", "2"),
-          # Здесь будет первый пациент из списка в БД
-          selected = "1"),
-        
-        uiOutput("patients"),
-        
-        # Кнопки связи с пациентов
-        actionButton(
-          inputId = "sendQuestionary",
-          label = "Отправить анкету"
-        ),
-        
-        actionButton(
-          inputId = "sendMessage",
-          label = "Написать сообщение"
+        tabsetPanel(
+          
+          # Вкладка выбора пациента
+          tabPanel(
+            title = "База данных",
+            
+            # Список пациентов
+            uiOutput("patients_list"),
+            
+            # Кнопки связи с пациентом
+            actionButton(
+              inputId = "sendQuestionary",
+              label = "Отправить анкету"
+            ),
+            
+            actionButton(
+              inputId = "sendMessage",
+              label = "Написать сообщение"
+            )
+          ),
+          
+          # Вкладка добавления пациента
+          tabPanel(
+            title = "Добавить пациента",
+            textInput(
+              inputId = "patient_id",
+              label = "Регистрационный номер"
+            ),
+            textInput(
+              inputId = "patient_name",
+              label = "ФИО"
+            ),
+            selectInput(
+              inputId = "patient_sex",
+              label = "Пол",
+              choices = c("М", "Ж"),
+              selected = "М"
+            ),
+            dateInput(
+              inputId = "patient_date_of_birth",
+              label = "Дата рождения",
+              format = "dd-mm-yyyy",
+              language = "ru"
+            ),
+            dateInput(
+              inputId = "operation_date",
+              label = "Дата ТГСК",
+              format = "dd-mm-yyyy",
+              language = "ru"
+            ),
+            dateInput(
+              inputId = "discharge_date",
+              label = "Дата выписки",
+              format = "dd-mm-yyyy",
+              language = "ru"
+            ),
+            selectInput(
+              inputId = "patient_relapce",
+              label = "Прогрессия заболевания после ТГСК",
+              choices = c("нет" = 0, "есть" = 1),
+              selected = 0
+            ),
+            textAreaInput(
+              inputId = "patient_comments",
+              label = "Комментарии"
+            ),
+            submitButton(
+              text = "Добавить в базу"
+            )
+          )
         )
         
       ),
@@ -50,8 +101,8 @@ shinyUI(
       # Show a plot of the generated distribution
       mainPanel(
         fluidPage(
-          h2(textOutput("patient_name")),
-          dataTableOutput("patient_data")
+          h2(textOutput("patient_name"))
+          # dataTableOutput("patient_data")
         )
       )
     )
