@@ -1,15 +1,20 @@
 CREATE TABLE doctor (
 	id integer PRIMARY KEY AUTOINCREMENT,
-	login string,
+	login string UNIQUE,
 	pw integer
 );
 
 CREATE TABLE patient (
 	id integer PRIMARY KEY AUTOINCREMENT,
 	doctor_id integer,
-	name string,
-	sex binary,
-	dateofbirth date
+	name string NOT NULL UNIQUE,
+	sex string,
+	dateofbirth date,
+        hsctdate date,
+        dischargedate date,
+        registration integer UNIQUE,
+        posthsctprogression string,
+        comments string
 );
 
 CREATE TABLE survey (

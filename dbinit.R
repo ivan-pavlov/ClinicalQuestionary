@@ -8,9 +8,14 @@ dbSendQuery(conn = db,"CREATE TABLE doctor (
 dbSendQuery(conn = db,"CREATE TABLE patient (
 	id integer PRIMARY KEY AUTOINCREMENT,
 	doctor_id integer,
-	name string,
-	sex binary,
-	dateofbirth date
+	name string NOT NULL UNIQUE,
+	sex string,
+	dateofbirth date,
+        hsctdate date,
+        dischargedate date,
+        registration integer,
+        posthsctprogression string,
+        comments string
 );")
 dbSendQuery(conn = db,"CREATE TABLE survey (
 	id integer PRIMARY KEY AUTOINCREMENT,
